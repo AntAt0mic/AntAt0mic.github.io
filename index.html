@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Schoolspace — Homepage concept</title>
+<style>
+:root{
+  --bg:#f5f7fb;--panel:#fff;--ink:#182230;--muted:#6b7788;--line:#e5eaf1;
+  --accent:#3659d9;--accent-soft:#edf1ff;--green:#167b62;--green-soft:#e8f7f1;
+  --orange:#a85b12;--orange-soft:#fff3e6;--purple:#7352b5;--purple-soft:#f2edff;
+  --sidebar:238px;--shadow:0 6px 24px rgba(23,38,69,.055);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+.app{min-height:100vh;display:flex}
+.sidebar{width:var(--sidebar);background:#fff;border-right:1px solid var(--line);padding:22px 14px;display:flex;flex-direction:column;flex-shrink:0;transition:width .2s ease;overflow:hidden}
+.brand{display:flex;align-items:center;gap:10px;padding:0 10px 28px;white-space:nowrap}
+.brand-mark{width:34px;height:34px;border-radius:11px;background:var(--accent);color:white;display:grid;place-items:center;font-weight:800;font-size:18px}
+.brand-name{font-weight:750;font-size:17px;letter-spacing:-.4px}
+.nav-label{font-size:11px;color:#9aa4b3;text-transform:uppercase;letter-spacing:1.2px;padding:8px 12px 10px;white-space:nowrap}
+.nav{display:flex;flex-direction:column;gap:5px}
+.nav button{display:flex;align-items:center;gap:13px;padding:11px 12px;border:0;border-radius:10px;background:transparent;color:#586477;text-align:left;white-space:nowrap}
+.nav button:hover{background:#f5f7fb}
+.nav button.active{background:var(--accent-soft);color:var(--accent);font-weight:650}
+.nav .ico{font-size:18px;width:22px;text-align:center;flex-shrink:0}
+.side-bottom{margin-top:auto;border-top:1px solid var(--line);padding:16px 8px 0;color:var(--muted);font-size:12px;white-space:nowrap}
+.collapse-btn{border:0;background:transparent;color:#7d8998;border-radius:8px;padding:7px 9px;margin:0 0 18px;align-self:flex-start}
+.collapse-btn:hover{background:#f1f4f9}
+.main{min-width:0;flex:1}
+.topbar{height:72px;background:rgba(255,255,255,.86);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:18px;padding:0 34px;position:sticky;top:0;z-index:5;backdrop-filter:blur(12px)}
+.breadcrumb{font-weight:650;white-space:nowrap}
+.top-spacer{flex:1}
+.search{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:#f9fafc;border-radius:10px;padding:9px 12px;width:min(260px,28vw);color:#8a95a4}
+.search input{border:0;outline:0;background:transparent;min-width:0;width:100%;color:var(--ink)}
+.top-icon{position:relative;border:1px solid var(--line);background:white;width:38px;height:38px;border-radius:10px;color:#667386}
+.dot{position:absolute;width:7px;height:7px;background:#e35c5c;border-radius:50%;top:7px;right:7px;border:1px solid white}
+.avatar{width:36px;height:36px;border-radius:50%;background:#e5eaff;color:#3659d9;display:grid;place-items:center;font-weight:750;font-size:12px}
+.content{max-width:1280px;margin:0 auto;padding:34px 38px 60px}
+.welcome-row{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:25px}
+.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:1.25px;color:var(--muted);font-weight:650;margin-bottom:7px}
+h1{font-size:29px;line-height:1.15;letter-spacing:-1px;margin:0 0 7px;font-weight:760}
+.subhead{color:var(--muted);margin:0}
+.date-chip{background:white;border:1px solid var(--line);border-radius:10px;padding:9px 13px;color:#687588;font-size:13px;white-space:nowrap}
+.section{margin-top:30px}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+h2{font-size:17px;letter-spacing:-.3px;margin:0;font-weight:730}
+.section-note{font-size:12px;color:var(--muted);margin-top:3px}
+.link-btn{border:0;background:transparent;color:var(--accent);font-weight:650;font-size:13px;padding:7px 4px}
+.link-btn:hover{text-decoration:underline}
+.shortcuts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.shortcut{display:flex;align-items:center;gap:13px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:17px 18px;text-align:left;box-shadow:0 2px 8px rgba(23,38,69,.02);transition:transform .15s,border-color .15s}
+.shortcut:hover{transform:translateY(-2px);border-color:#c5d0f7}
+.shortcut-icon{width:43px;height:43px;display:grid;place-items:center;border-radius:12px;font-size:20px;flex-shrink:0}
+.shortcut strong{display:block;font-size:14px;margin-bottom:3px}
+.shortcut small{display:block;color:var(--muted);font-size:12px}
+.shortcut-arrow{margin-left:auto;color:#9aa4b3;font-size:18px}
+.classes-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.class-card{background:white;border:1px solid var(--line);border-radius:14px;overflow:hidden;cursor:pointer;transition:transform .15s,border-color .15s;min-width:0}
+.class-card:hover{transform:translateY(-2px);border-color:#c5d0f7}
+.class-band{height:5px}
+.class-body{padding:16px}
+.class-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;gap:8px}
+.class-code{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.4px}
+.class-symbol{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:15px}
+.class-card h3{font-size:15px;margin:0 0 5px;letter-spacing:-.2px}
+.teacher{font-size:12px;color:var(--muted);margin-bottom:17px}
+.class-foot{border-top:1px solid #f0f2f6;padding-top:11px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--muted)}
+.pill{border-radius:6px;padding:4px 7px;font-size:10px;font-weight:700}
+.pill.blue{background:#edf1ff;color:#3659d9}.pill.green{background:var(--green-soft);color:var(--green)}
+.pill.orange{background:var(--orange-soft);color:var(--orange)}.pill.purple{background:var(--purple-soft);color:var(--purple)}
+.bottom-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(260px,.85fr);gap:18px;margin-top:30px}
+.panel{background:white;border:1px solid var(--line);border-radius:15px;overflow:hidden;min-width:0}
+.panel-head{padding:18px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.panel-head p{margin:4px 0 0;color:var(--muted);font-size:12px}
+.event-list{padding:4px 20px}
+.event{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:13px;align-items:center;padding:15px 0;border-bottom:1px solid #f0f2f6;cursor:pointer}
+.event:last-child{border-bottom:0}
+.event:hover .event-title{color:var(--accent)}
+.event-date{border:1px solid var(--line);border-radius:10px;text-align:center;padding:5px 3px;background:#fafbfe}
+.event-date b{display:block;font-size:17px;line-height:1.2}
+.event-date span{display:block;font-size:9px;color:var(--muted);font-weight:750;letter-spacing:.8px}
+.event-title{font-size:13px;font-weight:700;margin-bottom:4px}
+.event-meta{font-size:11px;color:var(--muted)}
+.event-type{font-size:10px;font-weight:700;border-radius:6px;padding:5px 7px;white-space:nowrap}
+.event-type.assignment{color:#3659d9;background:#edf1ff}.event-type.assessment{color:#a85b12;background:#fff3e6}.event-type.eventtype{color:#167b62;background:#e8f7f1}
+.week-card{padding:19px 20px}
+.week-label{font-size:12px;color:var(--muted);margin-bottom:14px}
+.week-days{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.day{text-align:center;padding:8px 0;border-radius:9px;color:#697588;font-size:11px}
+.day b{display:block;font-size:13px;margin-top:7px;color:var(--ink);font-weight:650}
+.day.today{background:var(--accent);color:white}
+.day.today b{color:white}
+.week-divider{height:1px;background:var(--line);margin:17px 0}
+.mini-event{display:flex;gap:10px;align-items:flex-start;margin:13px 0}
+.mini-bar{width:3px;height:35px;border-radius:5px;background:#5573e6;flex-shrink:0}
+.mini-event strong{display:block;font-size:12px;margin-bottom:3px}
+.mini-event span{font-size:11px;color:var(--muted)}
+.assistant-fab{position:fixed;right:27px;bottom:25px;width:56px;height:56px;border:0;border-radius:18px;background:#273b86;color:white;font-size:23px;box-shadow:0 8px 24px rgba(39,59,134,.28);z-index:10}
+.assistant-fab:hover{transform:translateY(-2px)}
+.assistant-panel{position:fixed;right:27px;bottom:92px;width:330px;max-width:calc(100vw - 32px);background:white;border:1px solid var(--line);border-radius:16px;box-shadow:0 15px 50px rgba(23,38,69,.18);z-index:10;overflow:hidden;display:none}
+.assistant-panel.open{display:block}
+.assistant-head{padding:15px 16px;background:#273b86;color:white;display:flex;justify-content:space-between;align-items:center}
+.assistant-head small{display:block;opacity:.75;font-size:11px;margin-top:2px}
+.assistant-head button{border:0;background:transparent;color:white;font-size:20px}
+.chat-body{padding:16px;font-size:13px;min-height:130px}
+.chat-bubble{background:#f1f4fa;border-radius:12px 12px 12px 3px;padding:11px 12px;max-width:95%;margin-bottom:12px}
+.chat-suggestions{display:flex;flex-wrap:wrap;gap:6px}
+.chat-suggestions button{border:1px solid var(--line);background:white;border-radius:8px;padding:7px 9px;font-size:11px;color:#536176}
+.chat-input{display:flex;gap:8px;border-top:1px solid var(--line);padding:12px}
+.chat-input input{width:100%;min-width:0;border:1px solid var(--line);border-radius:9px;padding:9px;font-size:12px}
+.chat-input button{border:0;background:var(--accent);color:white;border-radius:9px;padding:0 12px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:#182230;color:white;padding:11px 16px;border-radius:10px;font-size:13px;opacity:0;pointer-events:none;transition:.2s;z-index:30;box-shadow:var(--shadow)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.feedback-launch{position:fixed;left:18px;bottom:18px;background:white;border:1px solid var(--line);border-radius:10px;padding:9px 12px;color:#59677a;font-size:12px;box-shadow:var(--shadow);z-index:8}
+.feedback-overlay{position:fixed;inset:0;background:rgba(18,27,45,.38);z-index:20;display:none;align-items:center;justify-content:center;padding:18px}
+.feedback-overlay.open{display:flex}
+.feedback-modal{width:520px;max-width:100%;max-height:90vh;overflow:auto;background:white;border-radius:18px;box-shadow:0 18px 60px rgba(0,0,0,.2);padding:24px}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.modal-head h2{font-size:20px}
+.close-modal{border:0;background:#f3f5f8;border-radius:8px;width:32px;height:32px;font-size:18px;color:#667386}
+.modal-intro{color:var(--muted);font-size:13px;margin:0 0 20px}
+.rating-item{padding:15px 0;border-top:1px solid var(--line)}
+.rating-title{display:flex;justify-content:space-between;gap:10px;font-weight:700;font-size:13px}
+.rating-title span{color:var(--accent);font-weight:750}
+.rating-scale{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;margin-top:11px}
+.rating-scale button{border:1px solid var(--line);background:#fff;border-radius:7px;padding:8px 0;font-size:12px;color:#536176}
+.rating-scale button.selected{background:var(--accent);border-color:var(--accent);color:white}
+textarea{width:100%;min-height:80px;border:1px solid var(--line);border-radius:10px;padding:11px;resize:vertical;outline-color:var(--accent)}
+.primary-btn{background:var(--accent);border:0;color:white;border-radius:10px;padding:11px 15px;font-weight:650}
+.secondary-btn{background:white;border:1px solid var(--line);color:#536176;border-radius:10px;padding:10px 13px;font-weight:600}
+.modal-actions{display:flex;justify-content:space-between;gap:10px;margin-top:15px}
+.feedback-warning{font-size:11px;color:var(--muted);background:#f7f8fb;padding:10px;border-radius:9px;margin-top:15px}
+.directory{display:none}
+.directory.active{display:block}
+.home-view.hidden{display:none}
+.directory-toolbar{display:flex;gap:10px;margin:18px 0;flex-wrap:wrap}
+.directory-toolbar input{border:1px solid var(--line);background:white;border-radius:10px;padding:10px 12px;min-width:220px}
+.directory-note{background:white;border:1px solid var(--line);border-radius:12px;padding:16px;color:var(--muted);font-size:13px;margin-bottom:18px}
+.detail-view{display:none}
+.detail-view.active{display:block}
+.back-link{border:0;background:transparent;color:var(--accent);padding:0;margin-bottom:20px;font-weight:650}
+.detail-box{background:white;border:1px solid var(--line);border-radius:14px;padding:24px;max-width:760px}
+.detail-box h2{font-size:23px;margin-bottom:8px}
+.detail-box p{color:var(--muted)}
+@media(max-width:1100px){.classes-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.bottom-grid{grid-template-columns:1fr}.content{padding:28px 25px 55px}}
+@media(max-width:760px){
+ .sidebar{width:68px;padding:18px 8px}.brand{padding:0 8px 25px}.brand-name,.nav-label,.nav button .nav-text,.side-bottom{display:none}
+ .collapse-btn{align-self:center;padding:6px}.nav button{justify-content:center;padding:12px 8px}.nav button .ico{width:auto}
+ .topbar{padding:0 16px;height:62px;gap:10px}.search{width:38px;padding:9px;justify-content:center}.search input{display:none}
+ .content{padding:25px 16px 55px}.welcome-row{align-items:flex-start;flex-direction:column}.date-chip{display:none}
+ .shortcuts{grid-template-columns:1fr}.shortcut{padding:13px 15px}.shortcut-icon{width:38px;height:38px}
+ .classes-grid{grid-template-columns:1fr}.class-card:nth-child(n+3){display:none}
+ .event{grid-template-columns:48px minmax(0,1fr);gap:10px}.event-type{display:none}
+ .assistant-fab{right:16px;bottom:16px;width:51px;height:51px}.assistant-panel{right:16px;bottom:78px}
+ .feedback-launch{left:10px;bottom:10px}
+}
+body.collapsed .sidebar{width:68px;padding-left:8px;padding-right:8px}
+body.collapsed .brand{padding-left:8px}
+body.collapsed .brand-name,body.collapsed .nav-label,body.collapsed .nav button .nav-text,body.collapsed .side-bottom{display:none}
+body.collapsed .nav button{justify-content:center;padding:12px 8px}
+body.collapsed .nav button .ico{width:auto}
+body.collapsed .collapse-btn{align-self:center}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" aria-label="Main navigation">
+    <div class="brand"><div class="brand-mark">S</div><div class="brand-name">Schoolspace</div></div>
+    <button class="collapse-btn" id="collapseBtn" aria-label="Collapse sidebar" title="Collapse sidebar">☰</button>
+    <div class="nav-label">Workspace</div>
+    <nav class="nav">
+      <button class="active" data-page="home" title="Home"><span class="ico">⌂</span><span class="nav-text">Home</span></button>
+      <button data-page="classes" title="Classes"><span class="ico">▦</span><span class="nav-text">Classes</span></button>
+      <button data-page="portfolio" title="Portfolio"><span class="ico">▤</span><span class="nav-text">Portfolio</span></button>
+      <button data-page="gradebook" title="Gradebook"><span class="ico">▥</span><span class="nav-text">Gradebook</span></button>
+      <button data-page="calendar" title="Calendar"><span class="ico">▦</span><span class="nav-text">Calendar</span></button>
+    </nav>
+    <div class="side-bottom">Student workspace · concept preview</div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="breadcrumb" id="breadcrumb">Home</div>
+      <div class="top-spacer"></div>
+      <label class="search" aria-label="Search"><span>⌕</span><input id="globalSearch" placeholder="Search schoolspace…" /></label>
+      <button class="top-icon" id="notifications" aria-label="Notifications" title="Notifications">♧<span class="dot"></span></button>
+      <div class="avatar" title="Student profile">JD</div>
+    </header>
+
+    <div class="content">
+      <section class="home-view" id="homeView">
+        <div class="welcome-row">
+          <div><div class="eyebrow">Student workspace</div><h1>Welcome back, Jamie.</h1><p class="subhead">Here’s what’s happening across your classes.</p></div>
+          <div class="date-chip">◷ &nbsp; Wednesday, October 21</div>
+        </div>
+
+        <section>
+          <div class="section-head"><div><h2>Quick access</h2><div class="section-note">Your most-used destinations, one click away.</div></div></div>
+          <div class="shortcuts">
+            <button class="shortcut" data-page="classes"><span class="shortcut-icon" style="background:#edf1ff;color:#3659d9">▦</span><span><strong>Classes</strong><small>Browse all 14 classes</small></span><span class="shortcut-arrow">›</span></button>
+            <button class="shortcut" data-page="portfolio"><span class="shortcut-icon" style="background:#e8f7f1;color:#167b62">▤</span><span><strong>Portfolio</strong><small>Your work and reflections</small></span><span class="shortcut-arrow">›</span></button>
+            <button class="shortcut" data-page="gradebook"><span class="shortcut-icon" style="background:#f2edff;color:#7352b5">▥</span><span><strong>Gradebook</strong><small>Grades and feedback</small></span><span class="shortcut-arrow">›</span></button>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head"><div><h2>Your classes</h2><div class="section-note">Jump straight into a class workspace.</div></div><button class="link-btn" data-page="classes">All classes →</button></div>
+          <div class="classes-grid" id="homeClasses"></div>
+        </section>
+
+        <div class="bottom-grid">
+          <section class="panel">
+            <div class="panel-head"><div><h2>Coming up</h2><p>Assignments, assessments and school events.</p></div><button class="link-btn" data-page="calendar">Open calendar →</button></div>
+            <div class="event-list" id="eventList"></div>
+          </section>
+          <aside class="panel">
+            <div class="panel-head"><div><h2>This week</h2><p>A quick look at the days ahead.</p></div><span style="font-size:18px;color:#8b97a7">⌑</span></div>
+            <div class="week-card">
+              <div class="week-label">OCTOBER 2026</div>
+              <div class="week-days">
+                <div class="day">M<b>19</b></div><div class="day today">T<b>20</b></div><div class="day">W<b>21</b></div><div class="day">T<b>22</b></div><div class="day">F<b>23</b></div><div class="day">S<b>24</b></div><div class="day">S<b>25</b></div>
+              </div>
+              <div class="week-divider"></div>
+              <div class="mini-event"><div class="mini-bar"></div><div><strong>Biology lab report</strong><span>Tomorrow · Biology</span></div></div>
+              <div class="mini-event"><div class="mini-bar" style="background:#e4a052"></div><div><strong>Maths assessment</strong><span>Friday · Mathematics</span></div></div>
+              <div class="mini-event"><div class="mini-bar" style="background:#30a081"></div><div><strong>School science fair</strong><span>Monday · School event</span></div></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="directory" id="classesView">
+        <div class="eyebrow">Workspace</div><h1>Classes</h1><p class="subhead">Find a class and open its workspace.</p>
+        <div class="directory-toolbar"><input id="classSearch" placeholder="Search classes or teachers…" aria-label="Search classes" /></div>
+        <div class="directory-note">Example content for layout testing. These subjects and teachers are fictional; replace them with real class data only when the design is approved.</div>
+        <div class="classes-grid" id="allClasses"></div>
+      </section>
+
+      <section class="detail-view" id="detailView">
+        <button class="back-link" id="backHome">← Back to home</button>
+        <div class="eyebrow" id="detailEyebrow">Workspace preview</div>
+        <div class="detail-box"><h2 id="detailTitle">Portfolio</h2><p id="detailText"></p><div id="detailContent"></div></div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<button class="feedback-launch" id="openFeedback">✎ &nbsp; Rate this design</button>
+<button class="assistant-fab" id="assistantFab" aria-label="Open AI assistant" title="AI assistant preview">✳</button>
+<section class="assistant-panel" id="assistantPanel" aria-label="AI assistant preview">
+  <div class="assistant-head"><div><strong>Schoolspace assistant</strong><small>Preview · sample responses only</small></div><button id="closeAssistant" aria-label="Close assistant">×</button></div>
+  <div class="chat-body"><div class="chat-bubble" id="chatBubble">Hi! I can help you find things in your school workspace. What are you looking for?</div><div class="chat-suggestions"><button data-chat="Show my upcoming work">Upcoming work</button><button data-chat="Where are my grades?">Find my grades</button><button data-chat="Open my classes">My classes</button></div></div>
+  <form class="chat-input" id="chatForm"><input id="chatInput" placeholder="Ask a question…" autocomplete="off"><button type="submit">Send</button></form>
+</section>
+<div class="toast" id="toast" role="status"></div>
+
+<div class="feedback-overlay" id="feedbackOverlay" role="dialog" aria-modal="true" aria-labelledby="feedbackTitle">
+  <div class="feedback-modal">
+    <div class="modal-head"><h2 id="feedbackTitle">Rate the homepage concept</h2><button class="close-modal" id="closeFeedback" aria-label="Close feedback">×</button></div>
+    <p class="modal-intro">Rate each part from 1 (needs work) to 10 (works really well). Your feedback helps decide what to change.</p>
+    <div id="ratingItems"></div>
+    <label for="feedbackComment" style="font-size:13px;font-weight:700;display:block;margin:17px 0 8px">Any suggestions? (optional)</label>
+    <textarea id="feedbackComment" placeholder="What feels confusing, missing, or especially useful?"></textarea>
+    <div class="modal-actions"><button class="secondary-btn" id="exportFeedback">Export my response</button><button class="primary-btn" id="saveFeedback">Save response</button></div>
+    <div class="feedback-warning"><strong>Important:</strong> this prototype stores responses only in this browser. It does not send ratings to you or combine responses from different people. For a real group survey, connect this form to Google Forms, Google Sheets, or a small backend before sharing.</div>
+  </div>
+</div>
+
+<script>
+const classes = [
+ {name:"Biology",code:"SCI 204",teacher:"Ms. Carter",icon:"♧",color:"#5d9d82",soft:"#e8f7f1",tag:"Lab report tomorrow",tagClass:"green",detail:"Explore class materials, lab instructions, feedback and upcoming biology work."},
+ {name:"Mathematics",code:"MAT 112",teacher:"Mr. Patel",icon:"∑",color:"#5573e6",soft:"#edf1ff",tag:"Assessment Friday",tagClass:"blue",detail:"A place for lesson resources, practice sets, assessments and teacher feedback."},
+ {name:"History",code:"HUM 108",teacher:"Ms. Almeida",icon:"◷",color:"#c68b47",soft:"#fff3e6",tag:"1 new resource",tagClass:"orange",detail:"Browse source material, project briefs, class discussions and history assignments."},
+ {name:"English",code:"LAN 220",teacher:"Mr. Brooks",icon:"✎",color:"#9674cf",soft:"#f2edff",tag:"Essay feedback",tagClass:"purple",detail:"Open reading lists, writing assignments, comments and revision resources."},
+ {name:"Physics",code:"SCI 208",teacher:"Dr. Nunes",icon:"ϟ",color:"#4b9da8",soft:"#e6f7f8",tag:"New resource",tagClass:"green",detail:"Class notes, practical work, problem sets and physics assessments."},
+ {name:"Geography",code:"HUM 117",teacher:"Ms. Costa",icon:"◎",color:"#6d9d58",soft:"#edf7e8",tag:"Project ongoing",tagClass:"green",detail:"Maps, fieldwork, case studies and geography project resources."},
+ {name:"Computer Science",code:"TEC 101",teacher:"Mr. Silva",icon:"⌘",color:"#6f79c8",soft:"#f0f1ff",tag:"Practice set",tagClass:"blue",detail:"Coding exercises, project briefs, submissions and feedback."},
+ {name:"Art & Design",code:"ART 130",teacher:"Ms. Rocha",icon:"◒",color:"#c27d9d",soft:"#fff0f6",tag:"Portfolio update",tagClass:"purple",detail:"Collect creative work, process notes, critiques and project reflections."}
+];
+const events = [
+ {day:"22",month:"OCT",title:"Biology lab report",meta:"Biology · Due tomorrow",type:"Assignment",cls:"assignment",detail:"Submit the lab report in the Biology class workspace. This is sample data for testing the interface."},
+ {day:"23",month:"OCT",title:"Unit 3 assessment",meta:"Mathematics · 10:00 AM",type:"Assessment",cls:"assessment",detail:"Mathematics assessment covering the current unit. This is sample data for testing the interface."},
+ {day:"26",month:"OCT",title:"School science fair",meta:"Main hall · All day",type:"School event",cls:"eventtype",detail:"A school-wide science fair. This is sample data for testing the interface."},
+ {day:"28",month:"OCT",title:"History source analysis",meta:"History · Due next week",type:"Assignment",cls:"assignment",detail:"Analyse the assigned historical sources and submit your response in the History workspace."}
+];
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+function classCard(c){
+ return `<article class="class-card" data-class="${c.name}" tabindex="0" role="button" aria-label="Open ${c.name}">
+ <div class="class-band" style="background:${c.color}"></div><div class="class-body">
+ <div class="class-top"><span class="class-code">${c.code}</span><span class="class-symbol" style="background:${c.soft};color:${c.color}">${c.icon}</span></div>
+ <h3>${c.name}</h3><div class="teacher">${c.teacher}</div>
+ <div class="class-foot"><span class="pill ${c.tagClass}">${c.tag}</span><span>Open →</span></div></div></article>`;
+}
+function renderClasses(){
+ $('#homeClasses').innerHTML = classes.slice(0,4).map(classCard).join('');
+ $('#allClasses').innerHTML = classes.map(classCard).join('');
+}
+function renderEvents(){
+ $('#eventList').innerHTML = events.slice(0,3).map(e=>`<div class="event" tabindex="0" role="button" data-event="${e.title}">
+ <div class="event-date"><span>${e.month}</span><b>${e.day}</b></div>
+ <div><div class="event-title">${e.title}</div><div class="event-meta">${e.meta}</div></div><span class="event-type ${e.cls}">${e.type}</span></div>`).join('');
+}
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(window._toastTimer);window._toastTimer=setTimeout(()=>t.classList.remove('show'),2600)}
+function setPage(page){
+ $$('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
+ $('#breadcrumb').textContent=({home:'Home',classes:'Classes',portfolio:'Portfolio',gradebook:'Gradebook',calendar:'Calendar'})[page]||page;
+ $('#homeView').classList.toggle('hidden',page!=='home');
+ $('#classesView').classList.toggle('active',page==='classes');
+ $('#detailView').classList.toggle('active',['portfolio','gradebook','calendar'].includes(page));
+ if(['portfolio','gradebook','calendar'].includes(page)){
+  const data={
+   portfolio:['Portfolio','Your work, reflections and evidence of learning.','This is a preview of the Portfolio destination. In the real product, students could organise work by subject, add reflections, and link Google Drive files without uploading duplicate copies.'],
+   gradebook:['Gradebook','Grades and feedback in one place.','This is a preview of the Gradebook destination. A production version should clearly distinguish published grades from draft feedback and show the relevant class or assessment context.'],
+   calendar:['Calendar','Assignments, assessments and school events.','This is a preview of the full Calendar destination. It would provide calendar views and filters, while the homepage keeps only a concise “Coming up” preview.']
+  }[page];
+  $('#detailTitle').textContent=data[0];$('#detailEyebrow').textContent='Workspace preview';$('#detailText').textContent=data[1];$('#detailContent').innerHTML=`<p>${data[2]}</p><button class="secondary-btn" id="returnButton">Return to home</button>`;
+  $('#returnButton').onclick=()=>setPage('home');
+ }
+ if(page==='home') $('#detailView').classList.remove('active');
+}
+renderClasses();renderEvents();
+$$('[data-page]').forEach(b=>b.addEventListener('click',()=>setPage(b.dataset.page)));
+$('#collapseBtn').addEventListener('click',()=>{document.body.classList.toggle('collapsed');$('#collapseBtn').title=document.body.classList.contains('collapsed')?'Expand sidebar':'Collapse sidebar'});
+$('#classSearch').addEventListener('input',e=>{$$('#allClasses .class-card').forEach(card=>card.style.display=card.textContent.toLowerCase().includes(e.target.value.toLowerCase())?'':'none')});
+function openClass(name){
+ const c=classes.find(x=>x.name===name);if(!c)return;
+ $('#homeView').classList.add('hidden');$('#classesView').classList.remove('active');$('#detailView').classList.add('active');
+ $('#breadcrumb').textContent=c.name;$$('.nav button').forEach(b=>b.classList.remove('active'));
+ $('#detailEyebrow').textContent=`${c.code} · ${c.teacher}`;$('#detailTitle').textContent=c.name;$('#detailText').textContent=c.detail;
+ $('#detailContent').innerHTML='<p>Class workspace preview</p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:18px"><div style="padding:14px;border:1px solid var(--line);border-radius:10px"><strong>Resources</strong><p>Lesson files and links</p></div><div style="padding:14px;border:1px solid var(--line);border-radius:10px"><strong>Assignments</strong><p>Work and submissions</p></div><div style="padding:14px;border:1px solid var(--line);border-radius:10px"><strong>Feedback</strong><p>Comments from your teacher</p></div></div><p><button class="secondary-btn" id="returnButton">Return to home</button></p>';
+ $('#returnButton').onclick=()=>setPage('home');
+}
+document.addEventListener('click',e=>{
+ const c=e.target.closest('[data-class]');if(c)openClass(c.dataset.class);
+ const ev=e.target.closest('[data-event]');if(ev){const item=events.find(x=>x.title===ev.dataset.event);if(item){$('#detailView').classList.add('active');$('#homeView').classList.add('hidden');$('#classesView').classList.remove('active');$('#breadcrumb').textContent=item.title;$('#detailEyebrow').textContent=item.type;$('#detailTitle').textContent=item.title;$('#detailText').textContent=item.detail;$('#detailContent').innerHTML='<button class="secondary-btn" id="returnButton">Return to home</button>';$('#returnButton').onclick=()=>setPage('home')}}
+});
+document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('[data-class],[data-event]')){e.preventDefault();e.target.click()}});
+$('#notifications').addEventListener('click',()=>toast('Notifications preview: no new alerts.'));
+$('#globalSearch').addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.value.trim()){const q=e.target.value.trim().toLowerCase();const c=classes.find(x=>x.name.toLowerCase().includes(q));if(c)openClass(c.name);else if(['portfolio','gradebook','calendar','classes','home'].includes(q))setPage(q);else toast('No sample results for “'+e.target.value.trim()+'”.')}});
+$('#assistantFab').addEventListener('click',()=>$('#assistantPanel').classList.toggle('open'));
+$('#closeAssistant').addEventListener('click',()=>$('#assistantPanel').classList.remove('open'));
+function reply(q){
+ const t=q.toLowerCase();let ans='I’m a visual prototype, so I can only demonstrate the layout—not access real school data yet.';
+ if(t.includes('grade'))ans='Use the Gradebook shortcut at the top of the homepage to open grades and feedback.';
+ else if(t.includes('class'))ans='Use Quick access → Classes for the full class directory, or click a class card to open its workspace.';
+ else if(t.includes('upcoming')||t.includes('assignment')||t.includes('work'))ans='The Coming up section combines assignments, assessments and school events. Open the calendar for the full schedule.';
+ $('#chatBubble').textContent=ans;
+}
+$$('[data-chat]').forEach(b=>b.addEventListener('click',()=>reply(b.dataset.chat)));
+$('#chatForm').addEventListener('submit',e=>{e.preventDefault();const q=$('#chatInput').value.trim();if(!q)return;reply(q);$('#chatInput').value=''});
+const ratingLabels=['Overall homepage layout','Quick access shortcuts','Your classes section','Coming up section','Sidebar navigation','AI assistant button'];
+const ratings={};
+$('#ratingItems').innerHTML=ratingLabels.map((label,i)=>`<div class="rating-item"><div class="rating-title">${label}<span id="ratingValue${i}">Not rated</span></div><div class="rating-scale">${Array.from({length:10},(_,n)=>`<button type="button" data-rating="${i}" data-value="${n+1}" aria-label="${label}: ${n+1} out of 10">${n+1}</button>`).join('')}</div></div>`).join('');
+$$('[data-rating]').forEach(b=>b.addEventListener('click',()=>{const i=b.dataset.rating;ratings[i]=Number(b.dataset.value);$$(`[data-rating="${i}"]`).forEach(x=>x.classList.toggle('selected',x===b));$('#ratingValue'+i).textContent=ratings[i]+'/10'}));
+$('#openFeedback').addEventListener('click',()=>$('#feedbackOverlay').classList.add('open'));
+$('#closeFeedback').addEventListener('click',()=>$('#feedbackOverlay').classList.remove('open'));
+$('#feedbackOverlay').addEventListener('click',e=>{if(e.target===$('#feedbackOverlay'))$('#feedbackOverlay').classList.remove('open')});
+function feedbackData(){return {submittedAt:new Date().toISOString(),ratings:Object.fromEntries(ratingLabels.map((l,i)=>[l,ratings[i]||null])),comment:$('#feedbackComment').value.trim()}}
+function exportFeedback(){const blob=new Blob([JSON.stringify(feedbackData(),null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='schoolspace-feedback.json';a.click();URL.revokeObjectURL(a.href)}
+$('#exportFeedback').addEventListener('click',exportFeedback);
+$('#saveFeedback').addEventListener('click',()=>{localStorage.setItem('schoolspace-feedback',JSON.stringify(feedbackData()));toast('Saved in this browser. Export the response to share it.');$('#feedbackOverlay').classList.remove('open')});
+</script>
+</body>
+</html>
